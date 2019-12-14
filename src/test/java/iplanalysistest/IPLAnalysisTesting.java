@@ -1,7 +1,9 @@
 package iplanalysistest;
 
+import com.google.gson.Gson;
 import iplanalysis.IPLAnalyser;
 import iplanalysis.IPLCSVException;
+import iplanalysis.MostRunCSV;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -17,7 +19,7 @@ public class IPLAnalysisTesting {
         try {
             IPLAnalyser iplAnalyser = new IPLAnalyser();
             int iplRecords = iplAnalyser.loadIPLMostRunsData(IPL_MOST_RUNS_CSV_FILE_PATH);
-            Assert.assertEquals(100, iplRecords);
+            Assert.assertEquals(101, iplRecords);
         } catch (IPLCSVException e) {
             e.printStackTrace();
         }
@@ -64,6 +66,20 @@ public class IPLAnalysisTesting {
             iplAnalyser.loadIPLMostRunsData(NON_Existing_IPL_CSV_File);
         } catch (IPLCSVException e) {
             Assert.assertEquals(IPLCSVException.ExceptionType.NO_CENSUS_DATA, e.type);
+        }
+
+    }
+
+    @Test
+    public void givenIPLMOstRunsCSVFile_WhenSortedOnAvg_ShouldReturnCorrectDesiredSortedData() {
+        try {
+            IPLAnalyser iplAnalyser = new IPLAnalyser();
+            iplAnalyser.loadIPLMostRunsData(IPL_MOST_RUNS_CSV_FILE_PATH);
+            String iplpLayersRecords = iplAnalyser.getAvgWiseSortedIPLPLayersRecords();
+            MostRunCSV[] mostRunCSVS = new Gson().fromJson(iplpLayersRecords, MostRunCSV[].class);
+            Assert.assertEquals("MS Dhoni", mostRunCSVS[mostRunCSVS.length - 1].player);
+        } catch (IPLCSVException e) {
+            e.printStackTrace();
         }
 
     }
