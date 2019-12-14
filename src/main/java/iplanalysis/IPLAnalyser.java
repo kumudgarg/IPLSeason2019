@@ -44,4 +44,10 @@ public class IPLAnalyser {
         return  sortedStateCensusJson;
 
     }
+
+    public String getStrikeWiseWiseSortedIPLPLayersRecords() {
+        runCSVList.sort(Comparator.comparing(mostRunCSV -> mostRunCSV.strikeRate));
+        String sortedStateCensusJson = new Gson().toJson(runCSVList);
+        return  sortedStateCensusJson;
+    }
 }
