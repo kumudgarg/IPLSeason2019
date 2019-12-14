@@ -1,5 +1,6 @@
 package iplanalysis;
 
+import censusanalyser.CensusAnalyserException;
 import com.google.gson.Gson;
 import csvbulider_jar.CSVBuilderException;
 import csvbulider_jar.CSVBuilderFactory;
@@ -9,14 +10,13 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 public class IPLAnalyser {
-    List<MostRunCSV> runCSVList = new ArrayList<MostRunCSV>();
+    Map< String, MostRunCSV> runCSVMap = new HashMap<>();
+    private SortByField.Parameter parameter;
 
     public int loadIPLMostRunsData(String csvFilePath) throws IPLCSVException {
         int count = 0;
@@ -25,7 +25,7 @@ public class IPLAnalyser {
             Iterator<MostRunCSV> mostRunCSVIterator = csvBuilder.getCSVFileIterator(reader, MostRunCSV.class);
             while (mostRunCSVIterator.hasNext()) {
                 MostRunCSV mostRunCSV = mostRunCSVIterator.next();
-                runCSVList.add(mostRunCSV);
+                runCSVMap.put(mostRunCSV.player, mostRunCSV);
                 count++;
             }
             return count;
@@ -38,16 +38,17 @@ public class IPLAnalyser {
         }
     }
 
-    public String getAvgWiseSortedIPLPLayersRecords() {
-        runCSVList.sort(Comparator.comparing(mostRunCSV -> mostRunCSV.avg));
+    public String getAvgWiseSortedIPLPLayersRecords(SortByField.Parameter parameter) throws IPLCSVException {
+        Comparator<MostRunCSV> censusComparator = null;
+        if (runCSVMap == null || runCSVMap.size() == 0) {
+            throw new IPLCSVException("NO_CENSUS_DATA", IPLCSVException.ExceptionType.NO_CENSUS_DATA);
+        }
+        censusComparator = SortByField.getParameter(parameter);
+       ArrayList runCSVList = runCSVMap.values().stream().
+                sorted(censusComparator).collect(Collectors.toCollection(ArrayList::new));
+
         String sortedStateCensusJson = new Gson().toJson(runCSVList);
         return  sortedStateCensusJson;
-
     }
 
-    public String getStrikeWiseWiseSortedIPLPLayersRecords() {
-        runCSVList.sort(Comparator.comparing(mostRunCSV -> mostRunCSV.strikeRate));
-        String sortedStateCensusJson = new Gson().toJson(runCSVList);
-        return  sortedStateCensusJson;
-    }
 }
