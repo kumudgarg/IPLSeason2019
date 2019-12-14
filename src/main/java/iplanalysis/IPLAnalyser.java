@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 import java.util.Iterator;
 
 public class IPLAnalyser {
-    public int loadIPLMostRunsData(String csvFilePath) {
+    public int loadIPLMostRunsData(String csvFilePath) throws IPLCSVException {
         int count = -1;
         try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
@@ -24,7 +24,9 @@ public class IPLAnalyser {
         } catch (IOException e) {
             e.printStackTrace();
         } catch (CSVBuilderException e) {
-            e.printStackTrace();
+            throw new IPLCSVException(e.getMessage(), IPLCSVException.ExceptionType.CENSUS_FILE_PROBLEM);
+        } catch (RuntimeException e) {
+            throw new IPLCSVException(e.getMessage(), IPLCSVException.ExceptionType.CSV_FILE_INTERNAL_ISSUES);
         }
         return 0;
     }
