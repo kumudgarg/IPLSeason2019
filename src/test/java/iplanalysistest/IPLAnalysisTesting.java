@@ -83,4 +83,18 @@ public class IPLAnalysisTesting {
         }
 
     }
+
+    @Test
+    public void givenIPLMOstRunsCSVFile_WhenSortedOnStrikeRate_ShouldReturnCorrectDesiredSortedData() {
+        try {
+            IPLAnalyser iplAnalyser = new IPLAnalyser();
+            iplAnalyser.loadIPLMostRunsData(IPL_MOST_RUNS_CSV_FILE_PATH);
+            String iplpLayersRecords = iplAnalyser.getStrikeWiseWiseSortedIPLPLayersRecords();
+            MostRunCSV[] mostRunCSVS = new Gson().fromJson(iplpLayersRecords, MostRunCSV[].class);
+            Assert.assertEquals("Ishant Sharma", mostRunCSVS[mostRunCSVS.length - 1].player);
+        } catch (IPLCSVException e) {
+            e.printStackTrace();
+        }
+
+    }
 }
