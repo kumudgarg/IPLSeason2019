@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import iplanalysis.IPLAnalyser;
 import iplanalysis.IPLCSVException;
 import iplanalysis.MostRunCSV;
+import iplanalysis.SortByField;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -75,7 +76,7 @@ public class IPLAnalysisTesting {
         try {
             IPLAnalyser iplAnalyser = new IPLAnalyser();
             iplAnalyser.loadIPLMostRunsData(IPL_MOST_RUNS_CSV_FILE_PATH);
-            String iplpLayersRecords = iplAnalyser.getAvgWiseSortedIPLPLayersRecords();
+            String iplpLayersRecords = iplAnalyser.getAvgWiseSortedIPLPLayersRecords(SortByField.Parameter.AVG);
             MostRunCSV[] mostRunCSVS = new Gson().fromJson(iplpLayersRecords, MostRunCSV[].class);
             Assert.assertEquals("MS Dhoni", mostRunCSVS[mostRunCSVS.length - 1].player);
         } catch (IPLCSVException e) {
@@ -89,7 +90,7 @@ public class IPLAnalysisTesting {
         try {
             IPLAnalyser iplAnalyser = new IPLAnalyser();
             iplAnalyser.loadIPLMostRunsData(IPL_MOST_RUNS_CSV_FILE_PATH);
-            String iplpLayersRecords = iplAnalyser.getStrikeWiseWiseSortedIPLPLayersRecords();
+            String iplpLayersRecords = iplAnalyser.getAvgWiseSortedIPLPLayersRecords(SortByField.Parameter.STRIKERATE);
             MostRunCSV[] mostRunCSVS = new Gson().fromJson(iplpLayersRecords, MostRunCSV[].class);
             Assert.assertEquals("Ishant Sharma", mostRunCSVS[mostRunCSVS.length - 1].player);
         } catch (IPLCSVException e) {
