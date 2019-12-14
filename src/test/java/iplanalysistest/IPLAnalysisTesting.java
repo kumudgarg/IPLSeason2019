@@ -8,6 +8,7 @@ import org.junit.Test;
 public class IPLAnalysisTesting {
     private static final String IPL_MOST_RUNS_CSV_FILE_PATH = "./src/test/resources/IPL2019FactsheetMostRuns.csv";
     private static final String IPL_Wrong_CSV_FILE_PATH = "./src/test/resources/IPL2019MostRuns.csv";
+    private static final String Wrong_Delimiter_CSV_FILE = "./src/test/resources/WrongDelimiterCSV.csv";
 
     @Test
     public void givenIPLMOstRunsCSVFile_ShouldReturnCorrectRecords() {
@@ -27,7 +28,18 @@ public class IPLAnalysisTesting {
             IPLAnalyser iplAnalyser = new IPLAnalyser();
             iplAnalyser.loadIPLMostRunsData(IPL_Wrong_CSV_FILE_PATH);
         } catch (IPLCSVException e) {
-           Assert.assertEquals(IPLCSVException.ExceptionType.CSV_FILE_INTERNAL_ISSUES, e.type);
+            Assert.assertEquals(IPLCSVException.ExceptionType.CSV_FILE_INTERNAL_ISSUES, e.type);
+        }
+
+    }
+
+    @Test
+    public void givenWrongDelimiterIPLMOstRunsCSVFile_ShouldReturnCustomExceptionType() {
+        try {
+            IPLAnalyser iplAnalyser = new IPLAnalyser();
+            iplAnalyser.loadIPLMostRunsData(Wrong_Delimiter_CSV_FILE);
+        } catch (IPLCSVException e) {
+            Assert.assertEquals(IPLCSVException.ExceptionType.CSV_FILE_INTERNAL_ISSUES, e.type);
         }
 
     }
