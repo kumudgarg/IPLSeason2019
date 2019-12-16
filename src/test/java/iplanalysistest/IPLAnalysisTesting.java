@@ -76,7 +76,7 @@ public class IPLAnalysisTesting {
         try {
             IPLAnalyser iplAnalyser = new IPLAnalyser();
             iplAnalyser.loadIPLMostRunsData(IPL_MOST_RUNS_CSV_FILE_PATH);
-            String iplpLayersRecords = iplAnalyser.getAvgWiseSortedIPLPLayersRecords(SortByField.Parameter.AVG);
+            String iplpLayersRecords = iplAnalyser.getFieldWiseSortedIPLPLayersRecords(SortByField.Parameter.AVG);
             MostRunCSV[] mostRunCSVS = new Gson().fromJson(iplpLayersRecords, MostRunCSV[].class);
             Assert.assertEquals("MS Dhoni", mostRunCSVS[mostRunCSVS.length - 1].player);
         } catch (IPLCSVException e) {
@@ -90,9 +90,23 @@ public class IPLAnalysisTesting {
         try {
             IPLAnalyser iplAnalyser = new IPLAnalyser();
             iplAnalyser.loadIPLMostRunsData(IPL_MOST_RUNS_CSV_FILE_PATH);
-            String iplpLayersRecords = iplAnalyser.getAvgWiseSortedIPLPLayersRecords(SortByField.Parameter.STRIKERATE);
+            String iplpLayersRecords = iplAnalyser.getFieldWiseSortedIPLPLayersRecords(SortByField.Parameter.STRIKERATE);
             MostRunCSV[] mostRunCSVS = new Gson().fromJson(iplpLayersRecords, MostRunCSV[].class);
             Assert.assertEquals("Ishant Sharma", mostRunCSVS[mostRunCSVS.length - 1].player);
+        } catch (IPLCSVException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Test
+    public void givenIPLMOstRunsCSVFile_WhenSortedOn4SAnd6s_ShouldReturnCorrectDesiredSortedData() {
+        try {
+            IPLAnalyser iplAnalyser = new IPLAnalyser();
+            iplAnalyser.loadIPLMostRunsData(IPL_MOST_RUNS_CSV_FILE_PATH);
+            String iplpLayersRecords = iplAnalyser.getFieldWiseSortedIPLPLayersRecords(SortByField.Parameter.Six_AND_Fours);
+            MostRunCSV[] mostRunCSVS = new Gson().fromJson(iplpLayersRecords, MostRunCSV[].class);
+            Assert.assertEquals("Andre Russell", mostRunCSVS[mostRunCSVS.length - 1].player);
         } catch (IPLCSVException e) {
             e.printStackTrace();
         }
