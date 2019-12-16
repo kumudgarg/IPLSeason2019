@@ -13,14 +13,15 @@ public class IPLAnalysisTesting {
     private static final String IPL_Wrong_CSV_FILE_PATH = "./src/test/resources/IPL2019MostRuns.csv";
     private static final String Wrong_Delimiter_CSV_FILE = "./src/test/resources/WrongDelimiterCSV.csv";
     private static final String Missing_Header_CSV_File = "./src/test/resources/MissingHeaderCSV.csv";
-    private static final String NON_Existing_IPL_CSV_File= "./src/test/resources/NonExistingIPLCSV.csv";
+    private static final String NON_Existing_IPL_CSV_File = "./src/test/resources/NonExistingIPLCSV.csv";
+    private static final String IPL_MOST_WKTS_CSV_FILE_PATH = "./src/test/resources/IPL2019FactsheetMostWkts.csv";
 
     @Test
     public void givenIPLMOstRunsCSVFile_ShouldReturnCorrectRecords() {
         try {
             IPLAnalyser iplAnalyser = new IPLAnalyser();
             int iplRecords = iplAnalyser.loadIPLMostRunsData(IPL_MOST_RUNS_CSV_FILE_PATH);
-            Assert.assertEquals(101, iplRecords);
+            Assert.assertEquals(100, iplRecords);
         } catch (IPLCSVException e) {
             e.printStackTrace();
         }
@@ -144,5 +145,16 @@ public class IPLAnalysisTesting {
             e.printStackTrace();
         }
 
+    }
+
+    @Test
+    public void givenIPLMOstWktsCSVFile_ShouldReturnCorrectRecords() {
+        try {
+            IPLAnalyser iplAnalyser = new IPLAnalyser();
+            int iplRecords = iplAnalyser.loadIPLMostWktsData(IPL_MOST_WKTS_CSV_FILE_PATH);
+            Assert.assertEquals(99, iplRecords);
+        } catch (IPLCSVException e) {
+            e.printStackTrace();
+        }
     }
 }
