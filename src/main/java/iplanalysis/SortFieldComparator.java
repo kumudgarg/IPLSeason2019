@@ -2,9 +2,10 @@ package iplanalysis;
 
 import java.util.Comparator;
 
-public class SortFieldComparator implements Comparator<MostRunCSV> {
+public class SortFieldComparator implements Comparator<IPLRecordDAO> {
+
     @Override
-    public int compare(MostRunCSV obj1, MostRunCSV obj2) {
+    public int compare(IPLRecordDAO obj1, IPLRecordDAO obj2) {
         return (((obj1.six * 6) + (obj1.fours * 4)) - ((obj2.six * 6) + (obj2.fours * 4)));
     }
 }
