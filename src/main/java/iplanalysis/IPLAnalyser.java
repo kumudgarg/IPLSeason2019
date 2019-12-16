@@ -38,13 +38,13 @@ public class IPLAnalyser {
         }
     }
 
-    public String getAvgWiseSortedIPLPLayersRecords(SortByField.Parameter parameter) throws IPLCSVException {
+    public String getFieldWiseSortedIPLPLayersRecords(SortByField.Parameter parameter) throws IPLCSVException {
         Comparator<MostRunCSV> censusComparator = null;
         if (runCSVMap == null || runCSVMap.size() == 0) {
             throw new IPLCSVException("NO_CENSUS_DATA", IPLCSVException.ExceptionType.NO_CENSUS_DATA);
         }
         censusComparator = SortByField.getParameter(parameter);
-       ArrayList runCSVList = runCSVMap.values().stream().
+       ArrayList runCSVList =  runCSVMap.values().stream().
                 sorted(censusComparator).collect(Collectors.toCollection(ArrayList::new));
 
         String sortedStateCensusJson = new Gson().toJson(runCSVList);
