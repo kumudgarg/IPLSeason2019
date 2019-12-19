@@ -1,10 +1,7 @@
 package iplanalysistest;
 
 import com.google.gson.Gson;
-import iplanalysis.IPLAnalyser;
-import iplanalysis.IPLCSVException;
-import iplanalysis.MostRunCSV;
-import iplanalysis.SortByField;
+import iplanalysis.*;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -153,6 +150,19 @@ public class IPLAnalysisTesting {
             IPLAnalyser iplAnalyser = new IPLAnalyser();
             int iplRecords = iplAnalyser.loadIPLMostWktsData(IPL_MOST_WKTS_CSV_FILE_PATH);
             Assert.assertEquals(99, iplRecords);
+        } catch (IPLCSVException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenIPLMOstWktsCSVFile_WhenSortedOnAvg_ShouldReturnCorrectDesiredSortedData() {
+        try {
+            IPLAnalyser iplAnalyser = new IPLAnalyser();
+            iplAnalyser.loadIPLMostWktsData(IPL_MOST_WKTS_CSV_FILE_PATH);
+            String iplpLayersRecords = iplAnalyser.getFieldWiseSortedIPLPLayersRecords(SortByField.Parameter.AVG);
+            MostWktsCSV[] mostRunCSVS = new Gson().fromJson(iplpLayersRecords, MostWktsCSV[].class);
+            Assert.assertEquals("Krishnappa Gowtham", mostRunCSVS[mostRunCSVS.length - 1].player);
         } catch (IPLCSVException e) {
             e.printStackTrace();
         }
