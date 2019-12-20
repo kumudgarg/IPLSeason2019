@@ -193,4 +193,17 @@ public class IPLAnalysisTesting {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void givenIPLMOstWktsCSVFile_WhenSortedOn5WAnd4WWithStrikeRate_ShouldReturnCorrectDesiredSortedData() {
+        try {
+            IPLAnalyser iplAnalyser = new IPLAnalyser(IPLAnalyser.IPLEntity.BOWLING);
+            iplAnalyser.loadIPLData(IPL_MOST_WKTS_CSV_FILE_PATH);
+            String iplpLayersRecords = iplAnalyser.getFieldWiseSortedIPLPLayersRecords(SortByField.Parameter.FIVEWKT_FOURWKT_STRIKERATE);
+            MostWktsCSV[] mostRunCSVS = new Gson().fromJson(iplpLayersRecords, MostWktsCSV[].class);
+            Assert.assertEquals("Kagiso Rabada", mostRunCSVS[0].player);
+        } catch (IPLCSVException e) {
+            e.printStackTrace();
+        }
+    }
 }
