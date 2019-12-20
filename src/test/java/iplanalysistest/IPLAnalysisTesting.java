@@ -206,4 +206,17 @@ public class IPLAnalysisTesting {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void givenIPLMOstWktsCSVFile_WhenSortedOnBowlingAvgWithStrikeRate_ShouldReturnCorrectDesiredSortedData() {
+        try {
+            IPLAnalyser iplAnalyser = new IPLAnalyser(IPLAnalyser.IPLEntity.BOWLING);
+            iplAnalyser.loadIPLData(IPL_MOST_WKTS_CSV_FILE_PATH);
+            String iplpLayersRecords = iplAnalyser.getFieldWiseSortedIPLPLayersRecords(SortByField.Parameter.AVG_WITH_STRIKERATE);
+            MostWktsCSV[] mostRunCSVS = new Gson().fromJson(iplpLayersRecords, MostWktsCSV[].class);
+            Assert.assertEquals("Suresh Raina", mostRunCSVS[0].player);
+        } catch (IPLCSVException e) {
+            e.printStackTrace();
+        }
+    }
 }
