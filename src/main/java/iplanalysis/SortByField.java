@@ -11,7 +11,7 @@ public class SortByField {
     public enum Parameter {
         AVG, STRIKERATE, CENTUARY, FOURS, HALFCENTUARY, HIGHSCORE, SIX, RUN ,
         SIX_AND_FOURS, SIX_AND_FOURS_WITH_STRIKERATE, AVG_WITH_STRIKERATE,
-        RUN_WITH_AVG, ECONOMY, FIVEWKT_FOURWKT_STRIKERATE;
+        RUN_WITH_AVG, ECONOMY, FIVEWKT_FOURWKT_STRIKERATE, WKT_WITH_AVG;
     }
 
     SortByField() {
@@ -25,6 +25,7 @@ public class SortByField {
         Comparator<IPLRecordDAO> sixComparator = Comparator.comparing(mostRunCSV -> mostRunCSV.six);
         Comparator<IPLRecordDAO> runComparator = Comparator.comparing(mostRunCSV -> mostRunCSV.runs);
         Comparator<IPLRecordDAO> ecoComparator = Comparator.comparing(mostRunCSV -> mostRunCSV.economy);
+        Comparator<IPLRecordDAO> wktComparator = Comparator.comparing(mostRunCSV -> mostRunCSV.wkts);
 
         sortParameterComparator.put(Parameter.AVG, avgComparator);
         sortParameterComparator.put(Parameter.STRIKERATE, strikeRateComparator);
@@ -37,6 +38,7 @@ public class SortByField {
         sortParameterComparator.put(Parameter.RUN_WITH_AVG,runComparator.thenComparing(avgComparator));
         sortParameterComparator.put(Parameter.ECONOMY,ecoComparator);
         sortParameterComparator.put(Parameter.FIVEWKT_FOURWKT_STRIKERATE,new Sort5WAND4WComparator().reversed().thenComparing(strikeRateComparator));
+        sortParameterComparator.put(Parameter.WKT_WITH_AVG, wktComparator.thenComparing(avgComparator));
 
 
 

@@ -219,4 +219,17 @@ public class IPLAnalysisTesting {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void givenIPLMOstWktsCSVFile_WhenSortedOnWktsWithAvg_ShouldReturnCorrectDesiredSortedData() {
+        try {
+            IPLAnalyser iplAnalyser = new IPLAnalyser(IPLAnalyser.IPLEntity.BOWLING);
+            iplAnalyser.loadIPLData(IPL_MOST_WKTS_CSV_FILE_PATH);
+            String iplpLayersRecords = iplAnalyser.getFieldWiseSortedIPLPLayersRecords(SortByField.Parameter.WKT_WITH_AVG);
+            MostWktsCSV[] mostRunCSVS = new Gson().fromJson(iplpLayersRecords, MostWktsCSV[].class);
+            Assert.assertEquals("Imran Tahir", mostRunCSVS[mostRunCSVS.length - 1].player);
+        } catch (IPLCSVException e) {
+            e.printStackTrace();
+        }
+    }
 }
