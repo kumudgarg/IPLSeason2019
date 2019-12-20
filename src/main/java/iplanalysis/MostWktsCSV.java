@@ -34,5 +34,8 @@ public class MostWktsCSV {
     @CsvBindByName(column = "5w", required = true)
     public int fiveWkts;
 
+    @CsvBindByName(column = "Econ", required = true)
+    public double economy;
+
 
 }
