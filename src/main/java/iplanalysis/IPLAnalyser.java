@@ -16,9 +16,7 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 public class IPLAnalyser {
-     public enum IPLEntity{
-         BATING, BOWLING
-     }
+
     Map< String, IPLRecordDAO> runCSVMap ;
     private SortByField.Parameter parameter;
     public IPLEntity iplEntity;
@@ -31,22 +29,22 @@ public class IPLAnalyser {
         this.runCSVMap = new HashMap<String, IPLRecordDAO>();
     }
 
-    public <T>int loadIPLData(String csvFilePath) throws IPLCSVException {
-        runCSVMap = new IPLAdapterFactory().cricketleagueFactory(iplEntity,csvFilePath);
+    public <T>int loadIPLData(String... csvFilePath) throws IPLCSVException {
+        runCSVMap = new IPLAdapterFactory().cricketleagueFactory(iplEntity, csvFilePath);
         return runCSVMap.size();
     }
 
     public String getFieldWiseSortedIPLPLayersRecords(SortByField.Parameter parameter) throws IPLCSVException {
-        Comparator<IPLRecordDAO> censusComparator = null;
+        Comparator<IPLRecordDAO> iplComparator;
         if (runCSVMap == null || runCSVMap.size() == 0) {
-            throw new IPLCSVException("NO_CENSUS_DATA", IPLCSVException.ExceptionType.NO_CENSUS_DATA);
+            throw new IPLCSVException("NO_CENSUS_DATA", IPLCSVException.ExceptionType.NO_IPL_DATA);
         }
-        censusComparator = SortByField.getParameter(parameter);
-       ArrayList runCSVList =  runCSVMap.values().stream().
-                sorted(censusComparator).collect(Collectors.toCollection(ArrayList::new));
+        iplComparator = SortByField.getParameter(parameter);
+       ArrayList runCSVList =  runCSVMap.values().stream()
+               .sorted(iplComparator).collect(Collectors.toCollection(ArrayList::new));
 
-        String sortedStateCensusJson = new Gson().toJson(runCSVList);
-        return  sortedStateCensusJson;
+        String sortedIPLJson = new Gson().toJson(runCSVList);
+        return  sortedIPLJson;
     }
 
 }

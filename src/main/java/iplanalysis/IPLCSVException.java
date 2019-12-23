@@ -5,7 +5,7 @@ import censusanalyser.CensusAnalyserException;
 public class IPLCSVException extends Exception {
 
     public enum ExceptionType {
-        CENSUS_FILE_PROBLEM, UNABLE_TO_PARSE,  NO_CENSUS_DATA, CSV_FILE_INTERNAL_ISSUES, INVALID_COUNTRY
+        IPL_FILE_PROBLEM, UNABLE_TO_PARSE,  NO_IPL_DATA, IPL_FILE_INTERNAL_ISSUES, INVALID_COUNTRY
     }
 
     public IPLCSVException.ExceptionType type;
