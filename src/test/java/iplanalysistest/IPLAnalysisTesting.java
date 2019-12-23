@@ -247,4 +247,17 @@ public class IPLAnalysisTesting {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void givenIPLMOstWktsCSVFile_WhenSortedOnALLRounders_ShouldReturnCorrectDesiredSortedData() {
+        try {
+            IPLAnalyser iplAnalyser = new IPLAnalyser(IPLEntity.BATING);
+            iplAnalyser.loadIPLData(IPL_MOST_RUNS_CSV_FILE_PATH, IPL_MOST_WKTS_CSV_FILE_PATH);
+            String iplpLayersRecords = iplAnalyser.getFieldWiseSortedIPLPLayersRecords(SortByField.Parameter.IPL_BEST_ALLROUNDER);
+            MostRunCSV[] mostRunCSVS = new Gson().fromJson(iplpLayersRecords, MostRunCSV[].class);
+            Assert.assertEquals("Hardik Pandya", mostRunCSVS[mostRunCSVS.length - 1].player);
+        } catch (IPLCSVException e) {
+            e.printStackTrace();
+        }
+    }
 }

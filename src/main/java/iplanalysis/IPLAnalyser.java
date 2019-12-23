@@ -17,7 +17,7 @@ import java.util.stream.StreamSupport;
 
 public class IPLAnalyser {
 
-    Map< String, IPLRecordDAO> runCSVMap ;
+    Map<String, IPLRecordDAO> runCSVMap;
     private SortByField.Parameter parameter;
     public IPLEntity iplEntity;
 
@@ -29,7 +29,7 @@ public class IPLAnalyser {
         this.runCSVMap = new HashMap<String, IPLRecordDAO>();
     }
 
-    public <T>int loadIPLData(String... csvFilePath) throws IPLCSVException {
+    public <T> int loadIPLData(String... csvFilePath) throws IPLCSVException {
         runCSVMap = new IPLAdapterFactory().cricketleagueFactory(iplEntity, csvFilePath);
         return runCSVMap.size();
     }
@@ -40,11 +40,11 @@ public class IPLAnalyser {
             throw new IPLCSVException("NO_CENSUS_DATA", IPLCSVException.ExceptionType.NO_IPL_DATA);
         }
         iplComparator = SortByField.getParameter(parameter);
-       ArrayList runCSVList =  runCSVMap.values().stream()
-               .sorted(iplComparator).collect(Collectors.toCollection(ArrayList::new));
+        ArrayList runCSVList = runCSVMap.values().stream()
+                .sorted(iplComparator).collect(Collectors.toCollection(ArrayList::new));
 
         String sortedIPLJson = new Gson().toJson(runCSVList);
-        return  sortedIPLJson;
+        return sortedIPLJson;
     }
 
 }

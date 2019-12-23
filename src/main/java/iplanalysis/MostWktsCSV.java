@@ -37,5 +37,4 @@ public class MostWktsCSV {
     @CsvBindByName(column = "Econ", required = true)
     public double economy;
 
-
 }

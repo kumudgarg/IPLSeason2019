@@ -16,12 +16,12 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.stream.StreamSupport;
 
-public class BatsmanAdapter extends IPLAdapter{
+public class BatsmanAdapter extends IPLAdapter {
 
     @Override
     public Map<String, IPLRecordDAO> loadIPLData(IPLEntity iplEntity, String... csvFilePath) throws IPLCSVException {
-        Map<String, IPLRecordDAO>  recordDAOMap = super.loadIPLData(MostRunCSV.class, csvFilePath[0]);
-        if(csvFilePath.length == 2)
+        Map<String, IPLRecordDAO> recordDAOMap = super.loadIPLData(MostRunCSV.class, csvFilePath[0]);
+        if (csvFilePath.length == 2)
             this.loadMostWKTSCSV(recordDAOMap, csvFilePath[1]);
         return recordDAOMap;
 
@@ -35,11 +35,14 @@ public class BatsmanAdapter extends IPLAdapter{
             Iterable<MostWktsCSV> wktsCSVS = () -> wktsCSVIterator;
             StreamSupport.stream(wktsCSVS.spliterator(), false)
                     .filter(csvIPL -> recordDAOMap.get(csvIPL.player) != null)
-                    .forEach(mostWktsCSV -> recordDAOMap.get(mostWktsCSV.player).bowlingAverage = mostWktsCSV.average);
+                    .forEach(mostWktsCSV -> {
+                        recordDAOMap.get(mostWktsCSV.player).bowlingAverage = mostWktsCSV.average;
+                        recordDAOMap.get(mostWktsCSV.player).wkts = mostWktsCSV.wkts;
+                    });
             return recordDAOMap.size();
         } catch (IOException e) {
             throw new IPLCSVException(e.getMessage(),
-                   IPLCSVException.ExceptionType.IPL_FILE_PROBLEM);
+                    IPLCSVException.ExceptionType.IPL_FILE_PROBLEM);
         } catch (RuntimeException | CSVBuilderException e) {
             throw new IPLCSVException(e.getMessage(), IPLCSVException.ExceptionType.IPL_FILE_INTERNAL_ISSUES);
         }
