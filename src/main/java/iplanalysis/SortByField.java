@@ -11,7 +11,7 @@ public class SortByField {
     public enum Parameter {
         BATTING_AVG, BOWLING_AVG, STRIKERATE, CENTUARY, FOURS, HALFCENTUARY, HIGHSCORE, SIX, RUNBYBATSMAN, RUNBYBOWLER,
         SIX_AND_FOURS, SIX_AND_FOURS_WITH_STRIKERATE, BAT_STATS_AVG_WITH_STRIKERATE, BOWL_STATS_AVG_WITH_STRIKERATE,
-        RUN_WITH_AVG, ECONOMY, FIVEWKT_FOURWKT_STRIKERATE, WKT_WITH_AVG, BATTING_BOWLING_AVERAGE, IPL_BEST_ALLROUNDER;
+        RUN_WITH_AVG, ECONOMY, FIVEWKT_FOURWKT_STRIKERATE, BAT_STATS_WKT_WITH_AVG, BOWL_STATS_WKT_WITH_AVG, BATTING_BOWLING_AVERAGE, IPL_BEST_ALLROUNDER;
     }
 
     SortByField() {
@@ -45,8 +45,8 @@ public class SortByField {
         sortParameterComparator.put(Parameter.RUN_WITH_AVG, bowlRunComparator.thenComparing(BowlAvgComparator));
         sortParameterComparator.put(Parameter.ECONOMY, ecoComparator);
         sortParameterComparator.put(Parameter.FIVEWKT_FOURWKT_STRIKERATE, new Sort5WAND4WComparator().reversed().thenComparing(strikeRateComparator));
-        sortParameterComparator.put(Parameter.WKT_WITH_AVG, wktComparator.thenComparing(BatAvgComparator));
-        sortParameterComparator.put(Parameter.WKT_WITH_AVG, wktComparator.thenComparing(BowlAvgComparator));
+        sortParameterComparator.put(Parameter.BAT_STATS_WKT_WITH_AVG, wktComparator.thenComparing(BatAvgComparator));
+        sortParameterComparator.put(Parameter.BOWL_STATS_WKT_WITH_AVG, wktComparator.thenComparing(BowlAvgComparator));
         sortParameterComparator.put(Parameter.BATTING_BOWLING_AVERAGE, new SortBattingBowlingAvg());
         sortParameterComparator.put(Parameter.IPL_BEST_ALLROUNDER, new SortIPLALLRounders());
 

@@ -77,4 +77,45 @@ public class IPLRecordDAO {
         this.six = six;
         this.match = match;
     }
+
+    public IPLRecordDAO(String player, int batsmanRun, double strikeRate, double battingAverage, double bowlingAverage, int fours, int six, double economy, int match) {
+        this.player = player;
+        this.batsmanRun = batsmanRun;
+        this.strikeRate = strikeRate;
+        this.battingAverage = battingAverage;
+        this.bowlingAverage = bowlingAverage;
+        this.fours = fours;
+        this.six = six;
+        this.economy = economy;
+        this.match = match;
+    }
+
+    public IPLRecordDAO(String player, int batsmanRun, double strikeRate, double battingAverage, double bowlingAverage, int fours, int six, int fourWkts, int fiveWkts, double economy, int match) {
+        this.player = player;
+        this.batsmanRun = batsmanRun;
+        this.strikeRate = strikeRate;
+        this.battingAverage = battingAverage;
+        this.bowlingAverage = bowlingAverage;
+        this.fours = fours;
+        this.six = six;
+        this.fourWkts = fourWkts;
+        this.fiveWkts = fiveWkts;
+        this.economy = economy;
+        this.match = match;
+    }
+
+    public IPLRecordDAO(String player, int batsmanRun, double strikeRate, double battingAverage, double bowlingAverage, int fours, int six, int wkts, int fourWkts, int fiveWkts, double economy, int match) {
+        this.player = player;
+        this.batsmanRun = batsmanRun;
+        this.strikeRate = strikeRate;
+        this.battingAverage = battingAverage;
+        this.bowlingAverage = bowlingAverage;
+        this.fours = fours;
+        this.six = six;
+        this.wkts = wkts;
+        this.fourWkts = fourWkts;
+        this.fiveWkts = fiveWkts;
+        this.economy = economy;
+        this.match = match;
+    }
 }

@@ -245,7 +245,7 @@ public class IPLAnalysisTesting {
             IPLAnalyser iplAnalyser = new IPLAnalyser();
             iplAnalyser.setIplAdapter(new BowlerAdapter());
             iplAnalyser.loadIPLData(IPL_MOST_WKTS_CSV_FILE_PATH);
-            String iplpLayersRecords = iplAnalyser.getFieldWiseSortedIPLPLayersRecords(SortByField.Parameter.WKT_WITH_AVG);
+            String iplpLayersRecords = iplAnalyser.getFieldWiseSortedIPLPLayersRecords(SortByField.Parameter.BOWL_STATS_WKT_WITH_AVG);
             MostWktsCSV[] mostRunCSVS = new Gson().fromJson(iplpLayersRecords, MostWktsCSV[].class);
             Assert.assertEquals("Imran Tahir", mostRunCSVS[mostRunCSVS.length - 1].player);
         } catch (IPLCSVException e) {
