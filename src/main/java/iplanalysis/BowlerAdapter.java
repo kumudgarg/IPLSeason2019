@@ -11,4 +11,5 @@ public class BowlerAdapter extends IPLAdapter {
         return recordDAOMap;
 
     }
+
 }

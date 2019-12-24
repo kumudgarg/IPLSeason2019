@@ -19,6 +19,7 @@ public class IPLAnalyser {
 
     Map<String, IPLRecordDAO> runCSVMap;
     private SortByField.Parameter parameter;
+    private IPLAdapter iplAdapter;
     public IPLEntity iplEntity;
 
     public IPLAnalyser(IPLEntity iplEntity) {
@@ -29,8 +30,12 @@ public class IPLAnalyser {
         this.runCSVMap = new HashMap<String, IPLRecordDAO>();
     }
 
+    public void setIplAdapter(IPLAdapter iplAdapter) {
+        this.iplAdapter = iplAdapter;
+    }
+
     public <T> int loadIPLData(String... csvFilePath) throws IPLCSVException {
-        runCSVMap = new IPLAdapterFactory().cricketleagueFactory(iplEntity, csvFilePath);
+        runCSVMap = iplAdapter.loadIPLData(iplEntity, csvFilePath);
         return runCSVMap.size();
     }
 

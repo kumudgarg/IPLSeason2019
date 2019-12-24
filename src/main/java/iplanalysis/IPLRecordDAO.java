@@ -45,4 +45,36 @@ public class IPLRecordDAO {
         over = mostWktsCSV.over;
 
     }
+
+    public IPLRecordDAO(String player, double battingAverage, int match) {
+        this.player = player;
+        this.battingAverage = battingAverage;
+        this.match = match;
+    }
+
+    public IPLRecordDAO(String player, double strikeRate, double battingAverage, int match) {
+        this.player = player;
+        this.strikeRate = strikeRate;
+        this.battingAverage = battingAverage;
+        this.match = match;
+    }
+
+    public IPLRecordDAO(String player, double strikeRate, double battingAverage, int fours, int six, int match) {
+        this.player = player;
+        this.strikeRate = strikeRate;
+        this.battingAverage = battingAverage;
+        this.fours = fours;
+        this.six = six;
+        this.match = match;
+    }
+
+    public IPLRecordDAO(String player, int batsmanRun, double strikeRate, double battingAverage, int fours, int six, int match) {
+        this.player = player;
+        this.batsmanRun = batsmanRun;
+        this.strikeRate = strikeRate;
+        this.battingAverage = battingAverage;
+        this.fours = fours;
+        this.six = six;
+        this.match = match;
+    }
 }
